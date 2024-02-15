@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT-Powered Survey</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="title" class="panel"><h1>GPT-Powered Survey</h1></div>
+    <div id="topic-panel" class="panel">
+        <span><h2>I want a survey on</h2></span>
+        <span><form id="topicForm"><input type="text" name="topic" placeholder="Topic" id="input-topic" required> with <input type="text" name="amount-questions" placeholder="0" id="questions-amount" required> questions<button type="submit" id="topic-button">GO</button></form></span>
+    </div>
+
+    <div id="button-panel" class="panel hidden">
+        <h3>Select subtopics for the survey (max 3)</h3>
+        <div class="buttons">
+            <button type="button" id="P1" class="button-subproperties">Subproperty 1!</button>
+            <button type="button" id="P2" class="button-subproperties">Subproperty 2!</button>
+        </div>
+        <div class="buttons">
+            <button type="button" id="P3" class="button-subproperties">Subproperty 3</button>
+            <button type="button" id="P4" class="button-subproperties">Subproperty 4</button>
+        </div>
+        <div class="buttons">
+            <form id="supPropForm" ><button type="button" id="P5" class="button-subproperties">Other</button><input type="text" name="otherSub" placeholder="Write your subtopic" required></form>
+        </div>
+        <div class="buttons">
+             <button type="button" id="sendSubProp">Get questions</button>
+        </div>
+    </div>
+    <div id="questions-panel" class="panel hidden">
+        <h3>Survey Questions</h3>
+        <div id="QA">
+
+        </div>
+        <button type="button" id="sendAnswers">Get analysis</button>
+    </div>
+    <div id="panel-analysis" class="panel hidden">
+        <h3>Final analysis</h3>
+        <p id="analysis-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga blanditiis laboriosam molestias vero beatae nesciunt necessitatibus? Quidem quia aliquam excepturi exercitationem accusamus laborum consectetur velit cupiditate error odio aut, vero hic totam perferendis facilis quod optio! Aliquam voluptas perferendis minima? Sint illum tempora laborum ratione sit exercitationem odio accusantium, porro doloremque ea, cupiditate itaque, dolorum voluptas eum facilis reprehenderit magnam saepe! Expedita molestias numquam reprehenderit fugiat cum iusto maiores, deleniti, ducimus facere, porro incidunt enim a perferendis est fuga quis magni exercitationem assumenda nesciunt explicabo. Laborum alias eaque culpa, consequuntur perspiciatis dignissimos possimus! Accusantium nam quaerat quia qui ratione ea.</p>
+        <button onclick="refreshPage()" style="width: 40vw; height: 7vh;">Try a survey with a different topic</button>
+    </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: aliceblue;
+    font-family: sans-serif;
+    height: 100vh;
+}
+
+.panel{
+    margin: 10vh 0vw;
+    display: block;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+#title{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#topic-panel{
+    margin: 0;
+}
+
+#input-topic{
+    width: 15vw;
+    height: 4vh;
+}
+
+#questions-amount{
+    width: 5vw;
+    height: 4vh;
+}
+#topic-button{
+    margin: 2vh 1vw;
+    height: 5vh;
+    width: 5vw;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.visible {
+  animation: fadeIn 1s ease forwards;
+}
+
+.button-subproperties{
+    border-radius: 10px;
+    margin: 2vh 4vw;
+    height: 8vh;
+    width: 20vw;
+    background-color: whitesmoke;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid green;
+}
+#sendSubProp{
+    border-radius: 10px;
+    margin: 3vh 0vw;
+    width: 40vw;
+    height: 7vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.answer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+}
+
+.answer-input{
+    width: 30vw;
+    height: 3vh;
+}
+#sendAnswers{
+    border-radius: 10px;
+    margin: 3vh 0vw;
+    width: 40vw;
+    height: 7vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#panel-analysis{
+    margin: 0vh 10vw;
+    padding: 0 0 10vh 0
+}
+
+.spinner{
+    margin: 4vh 0 0 0;
+    position: absolute;
+    left: 46vw;
+    height: 8vw;
+    width: 8vw;
+    border: 6px solid;
+    border-color: black transparent black transparent ;
+    border-radius: 50%;
+    animation: spin 1.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
