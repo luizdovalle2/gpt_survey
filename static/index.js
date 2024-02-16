@@ -25,7 +25,6 @@ topicFormEl.addEventListener('submit', function(event) {
     topic = topicFormEl.elements['topic'].value
     amount_form_value = topicFormEl.elements['amount-questions'].value
     if(!isNaN(parseInt(amount_form_value))){
-        console.log(amount_form_value);
         if(parseInt(amount_form_value) > 10 || parseInt(amount_form_value)<1){
             alert("The question amount should be an integer value between 1 and 10")
             return
@@ -49,7 +48,6 @@ topicFormEl.addEventListener('submit', function(event) {
             topicPanel.removeChild(loadDiv);
             JSONresponse = xhr.responseText; // Log the response from the server
         }
-        console.log(JSONresponse)
         if(JSONresponse.trim() === "null"){
             createDivProblem(topicPanel)
             return
@@ -146,7 +144,7 @@ function enableQuestionsPanel(JSONresponse) {
         const paragraphId = `textQ${i}`;
         const formId = `Q${i}`;
         const paragraphContent = formId +". " + questionValues[formId];;
-        htmlCode += `<p id="${paragraphId}">${paragraphContent}</p>`;
+        htmlCode += `<p id="${paragraphId}" class="question-text">${paragraphContent}</p>`;
 
         // Generate form element
         htmlCode += `<form id="${formId}" class="answer-form" ><input type="text" name="answer" placeholder="" class="answer-input" required></form>`;
@@ -189,7 +187,6 @@ buttonAnswers.addEventListener("click", function(event) {
             questionsPanel.removeChild(loadDiv);
             JSONresponse = xhr.responseText; // Log the response from the server
         }
-        console.log(JSONresponse)
         enableAnalysisPanel(JSONresponse)
     };
 });
@@ -200,7 +197,6 @@ function enableAnalysisPanel(JSONresponse){
     analysisText.style.textAlign = 'justify';
     anlysisPanel.classList.toggle("hidden");
     anlysisPanel.classList.toggle("visible");
-    window.scrollTo(0, document.body.scrollHeight);
 
 }
 

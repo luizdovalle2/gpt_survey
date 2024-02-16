@@ -26,6 +26,7 @@ body{
 
 #input-topic{
     width: 15vw;
+    min-width: 120px;
     height: 4vh;
 }
 
@@ -37,7 +38,9 @@ body{
     margin: 2vh 1vw;
     height: 5vh;
     width: 5vw;
-}
+    min-width: 40px;
+    justify-content: left; /* Center horizontally */
+    }
 
 .hidden {
   display: none;
@@ -55,12 +58,20 @@ body{
 .button-subproperties{
     border-radius: 10px;
     margin: 2vh 4vw;
-    height: 8vh;
+    height: 10vh;
     width: 20vw;
     background-color: whitesmoke;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border: 1px solid green;
 }
+
+@media screen and (max-width: 600px) {
+    .button-subproperties {
+        width: 130px; /* Set width to 100% when screen width is <= 600px */
+        height: 100px; /* Set height to 100px when screen width is <= 600px */
+    }
+}
+
 #sendSubProp{
     border-radius: 10px;
     margin: 3vh 0vw;
@@ -68,6 +79,10 @@ body{
     height: 7vh;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.question-text{
+    margin: 0 20px;
 }
 
 
@@ -81,6 +96,8 @@ body{
 .answer-input{
     width: 30vw;
     height: 3vh;
+    min-width: 200px;
+    margin: 15px 0;
 }
 #sendAnswers{
     border-radius: 10px;
@@ -93,7 +110,7 @@ body{
 
 #panel-analysis{
     margin: 0vh 10vw;
-    padding: 0 0 10vh 0
+    padding: 0 0 10vh 0;
 }
 
 .spinner{
