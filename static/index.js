@@ -37,8 +37,6 @@ topicFormEl.addEventListener('submit', function(event) {
         "topic": topic,
         "questionAmount": amountQuestionsFinal
     };
-
-
     topicPanel.appendChild(loadDiv);
 
     var xhr = new XMLHttpRequest();
@@ -52,9 +50,20 @@ topicFormEl.addEventListener('submit', function(event) {
             JSONresponse = xhr.responseText; // Log the response from the server
         }
         console.log(JSONresponse)
+        if(JSONresponse.trim() === "null"){
+            createDivProblem(topicPanel)
+            return
+        }
         enableButtonPanel(JSONresponse)
     };
 });
+
+function createDivProblem(element) {
+    var divProblem = document.createElement('div');
+    divProblem.classList.add('panel');
+    divProblem.innerHTML = "There was a problem creating the survey, please refresh the page and try another topic"
+    element.appendChild(divProblem)
+}
 
 function enableButtonPanel(JSONresponse) {
     var buttonValues = JSON.parse(JSONresponse);
@@ -107,6 +116,7 @@ buttonSubProp.addEventListener("click", function(event) {
     newDiv.id = "newDivId";
     newDiv.className = "spinner";
     buttonPanel.appendChild(loadDiv);
+    window.scrollTo(0, document.body.scrollHeight);
 
 
     var xhr = new XMLHttpRequest();
@@ -119,7 +129,10 @@ buttonSubProp.addEventListener("click", function(event) {
             buttonPanel.removeChild(loadDiv);
             JSONresponse = xhr.responseText; // Log the response from the server
         }
-        console.log(JSONresponse)
+        if(JSONresponse.trim() === "null"){
+            createDivProblem(buttonPanel)
+            return
+        }
         enableQuestionsPanel(JSONresponse)
     };
 });
@@ -147,14 +160,23 @@ function enableQuestionsPanel(JSONresponse) {
 
 buttonAnswers.addEventListener("click", function(event) {
     event.preventDefault(); // Prevent the default form submission
-    buttonAnswers.disabled = true;
+
     var answersMessage = { };
     var subPropString = ""
+    var allQuestions = true
     document.querySelectorAll('.answer-form').forEach(function(element) {
-        answersMessage[element.id] = element.elements['answer'].value 
+        answersMessage[element.id] = element.elements['answer'].value
+        if(answersMessage[element.id].trim() == ''){
+            allQuestions = false
+        }
     });
-
+    if(!allQuestions){
+        alert("Please answer all the questions")
+           return
+    }
+    buttonAnswers.disabled = true;
     questionsPanel.appendChild(loadDiv);
+    window.scrollTo(0, document.body.scrollHeight);
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/answers_form', true);

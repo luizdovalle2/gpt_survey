@@ -56,33 +56,39 @@ class LangchainChatAgent():
         self.message_history.add_ai_message(ai_message)
 
 def getSubTopics(agent, mainTopic):
-    promptSubTopics = f"The context is preparing a survey to analyze a person's {mainTopic}. Give me 4 focus subtopics for {mainTopic} as an enumerated list. Do not add an explanation. "
-    subTopics = "".join(el for el in agent.process_input(promptSubTopics))
-
-
-    # Split the string by newline characters
-    print(subTopics)
-    subTopics_lines = subTopics[subTopics.index("1."):].split('\n')
-    print(subTopics_lines)
-    # Create a dictionary with keys "Q1", "Q2", "Q3", "Q4" and values equal to the string value for each element
-    subTopics_dict = {
-        'P1': subTopics_lines[0].split('. ', 1)[1].strip(),
-        'P2': subTopics_lines[1].split('. ', 1)[1].strip(),
-        'P3': subTopics_lines[2].split('. ', 1)[1].strip(),
-        'P4': subTopics_lines[3].split('. ', 1)[1].strip()
-    }
-    return subTopics_dict
+    try:
+        promptSubTopics = f"The context is preparing a survey to analyze a person's {mainTopic}. Give me 4 focus subtopics for {mainTopic} as an enumerated list. Do not add an explanation. "
+        subTopics = "".join(el for el in agent.process_input(promptSubTopics))
+        # Split the string by newline characters
+        print(subTopics)
+        subTopics_lines = subTopics[subTopics.index("1."):].split('\n')
+        print(subTopics_lines)
+        # Create a dictionary with keys "Q1", "Q2", "Q3", "Q4" and values equal to the string value for each element
+        subTopics_dict = {
+            'P1': subTopics_lines[0].split('. ', 1)[1].strip(),
+            'P2': subTopics_lines[1].split('. ', 1)[1].strip(),
+            'P3': subTopics_lines[2].split('. ', 1)[1].strip(),
+            'P4': subTopics_lines[3].split('. ', 1)[1].strip()
+        }
+        return subTopics_dict
+    except:
+        return
 def getQuestions(agent, mainTopic, questionAmount , subTopics):
-    promptQuestion = f"Generate an enumerated list with {questionAmount} generalized questions for a survey on {mainTopic}, slightly touching on {subTopics} . Do not add scale or any other additional information. "
-    questions = "".join(el for el in agent.process_input(promptQuestion))
-    print(questions)
-    questions_lines = questions[questions.index("1."):].split('\n')
-    print(questions_lines)
-    question_dics = {}
-    for i in range(int(questionAmount)):
-        question_key = f'Q{i + 1}'
-        question_dics[question_key] = questions_lines[i].split('. ', 1)[1].strip()
-    return question_dics
+    try:
+
+        promptQuestion = f"Generate an enumerated list with {questionAmount} generalized questions for a survey on {mainTopic}, slightly touching on {subTopics} . Do not add scale or any other additional information. "
+        questions = "".join(el for el in agent.process_input(promptQuestion))
+        print(questions)
+        questions_lines = questions[questions.index("1."):].split('\n')
+        print(questions_lines)
+        question_dics = {}
+        for i in range(int(questionAmount)):
+            question_key = f'Q{i + 1}'
+            question_dics[question_key] = questions_lines[i].split('. ', 1)[1].strip()
+        return question_dics
+    except:
+        return
+
 
 def getAnalysis(agent, mainTopic, questions, answers):
     textQA = ""
@@ -90,7 +96,7 @@ def getAnalysis(agent, mainTopic, questions, answers):
         textQA += f"{key}: {questions[key]}\n"
         textQA += f"Answer to {key}: {answers[key]}\n"
 
-    promptAnalysis = f"Analyse the situation of the participant on the survey with topic {mainTopic} and generalize it in one paragraph abstracting from the question and answers. {textQA}"
+    promptAnalysis =f"Generalize the person's {mainTopic} (make conclusions beyond the questions and answers).  {textQA}"
     print(promptAnalysis)
     analysis = "".join(el for el in agent.process_input(promptAnalysis))
     return analysis
@@ -107,7 +113,8 @@ def index():
 def form_topic():
     global configSurvey
     configSurvey= request.json  # Assuming the data is sent as JSON
-    return jsonify(getSubTopics(llMagent, configSurvey["topic"]))
+    subTopics = getSubTopics(llMagent, configSurvey["topic"])
+    return jsonify(subTopics)
 
 @app.route('/subprop_form', methods=['POST'])
 def subprop_form():
