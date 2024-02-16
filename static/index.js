@@ -13,6 +13,7 @@ var questionsPanel = document.getElementById("questions-panel");
 var topicPanel = document.getElementById("topic-panel");
 var buttonPanel = document.getElementById("button-panel");
 var anlysisPanel = document.getElementById("panel-analysis");
+var analysisText = document.getElementById("analysis-text");
 
 var loadDiv = document.createElement("div");
 loadDiv.id = "newDivId";
@@ -21,8 +22,6 @@ loadDiv.className = "spinner";
 
 topicFormEl.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
-    document.getElementById("topic-button").disabled = true;
-
     topic = topicFormEl.elements['topic'].value
     amount_form_value = topicFormEl.elements['amount-questions'].value
     if(!isNaN(parseInt(amount_form_value))){
@@ -32,6 +31,7 @@ topicFormEl.addEventListener('submit', function(event) {
             return
         }
     }
+    document.getElementById("topic-button").disabled = true;
     amountQuestionsFinal = parseInt(amount_form_value)
     var congifSurvey = {
         "topic": topic,
@@ -62,6 +62,7 @@ function createDivProblem(element) {
     var divProblem = document.createElement('div');
     divProblem.classList.add('panel');
     divProblem.innerHTML = "There was a problem creating the survey, please refresh the page and try another topic"
+    divProblem.style.padding = '0 0 10vh 0';
     element.appendChild(divProblem)
 }
 
@@ -195,7 +196,8 @@ buttonAnswers.addEventListener("click", function(event) {
 
 function enableAnalysisPanel(JSONresponse){
     var analysisValue = JSON.parse(JSONresponse);
-    document.getElementById("analysis-text").innerHTML = analysisValue;
+    analysisText.innerHTML = analysisValue;
+    analysisText.style.textAlign = 'justify';
     anlysisPanel.classList.toggle("hidden");
     anlysisPanel.classList.toggle("visible");
     window.scrollTo(0, document.body.scrollHeight);

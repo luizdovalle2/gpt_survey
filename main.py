@@ -76,7 +76,7 @@ def getSubTopics(agent, mainTopic):
 def getQuestions(agent, mainTopic, questionAmount , subTopics):
     try:
 
-        promptQuestion = f"Generate an enumerated list with {questionAmount} generalized questions for a survey on {mainTopic}, slightly touching on {subTopics} . Do not add scale or any other additional information. "
+        promptQuestion = f"Do not add scale or any other additional information. Generate an enumerated list with {questionAmount} generalized questions for a survey on {mainTopic}, slightly touching on {subTopics}. "
         questions = "".join(el for el in agent.process_input(promptQuestion))
         print(questions)
         questions_lines = questions[questions.index("1."):].split('\n')
@@ -96,7 +96,7 @@ def getAnalysis(agent, mainTopic, questions, answers):
         textQA += f"{key}: {questions[key]}\n"
         textQA += f"Answer to {key}: {answers[key]}\n"
 
-    promptAnalysis =f"Generalize the person's {mainTopic} (make conclusions beyond the questions and answers).  {textQA}"
+    promptAnalysis =f"{textQA}. Generalize the participant's {mainTopic}. Make conclusions beyond the questions and answers. Write it in prose. "
     print(promptAnalysis)
     analysis = "".join(el for el in agent.process_input(promptAnalysis))
     return analysis
