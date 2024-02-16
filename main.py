@@ -8,7 +8,7 @@ import creds
 
 INPUTMARKER_END = "-- END --"
 ANYSCALE_BASE_URL = "https://api.endpoints.anyscale.com/v1"
-ANYSCALE_API_KEY = creds.api_key
+ANYSCALE_API_KEY = creds.anyscale_api_key
 model_name = "meta-llama/Llama-2-7b-chat-hf"
 
 class StreamingCBH(BaseCallbackHandler):
