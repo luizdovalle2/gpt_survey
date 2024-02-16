@@ -197,6 +197,7 @@ function enableAnalysisPanel(JSONresponse){
     analysisText.style.textAlign = 'justify';
     anlysisPanel.classList.toggle("hidden");
     anlysisPanel.classList.toggle("visible");
+    window.scrollBy(0, 300);
 
 }
 
