@@ -60,9 +60,7 @@ def getSubTopics(agent, mainTopic):
         promptSubTopics = f"The context is preparing a survey to analyze a person's {mainTopic}. Give me 4 focus subtopics for {mainTopic} as an enumerated list. Do not add an explanation. "
         subTopics = "".join(el for el in agent.process_input(promptSubTopics))
         # Split the string by newline characters
-        print(subTopics)
         subTopics_lines = subTopics[subTopics.index("1."):].split('\n')
-        print(subTopics_lines)
         # Create a dictionary with keys "Q1", "Q2", "Q3", "Q4" and values equal to the string value for each element
         subTopics_dict = {
             'P1': subTopics_lines[0].split('. ', 1)[1].strip(),
@@ -78,9 +76,7 @@ def getQuestions(agent, mainTopic, questionAmount , subTopics):
 
         promptQuestion = f"Do not add scale or any other additional information. Generate an enumerated list with {questionAmount} generalized questions for a survey on {mainTopic}, slightly touching on {subTopics}. "
         questions = "".join(el for el in agent.process_input(promptQuestion))
-        print(questions)
         questions_lines = questions[questions.index("1."):].split('\n')
-        print(questions_lines)
         question_dics = {}
         for i in range(int(questionAmount)):
             question_key = f'Q{i + 1}'
@@ -97,7 +93,6 @@ def getAnalysis(agent, mainTopic, questions, answers):
         textQA += f"Answer to {key}: {answers[key]}\n"
 
     promptAnalysis =f"{textQA}. Generalize the participant's {mainTopic}. Make conclusions beyond the questions and answers. Write it in prose. "
-    print(promptAnalysis)
     analysis = "".join(el for el in agent.process_input(promptAnalysis))
     return analysis
 
